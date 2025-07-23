@@ -21,10 +21,12 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}     
           port: 22
-          source: "./"                  # you can specify files/folders here
-          target: "/home/ubuntu/app"   # replace with your actual destination
+          source: "./"
+          target: "/home/ubuntu/app"
+          timeout: 30s
+          command_timeout: 10m
 
       - name: Invoke Jenkins Deployment Job
         uses: appleboy/jenkins-action@master
