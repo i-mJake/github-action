@@ -1,0 +1,35 @@
+name: My First Demo
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: echo "Build Coding Practice"
+
+      - name: Copy files to server using SCP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}                 # e.g. 13.235.63.165
+          username: labuser                         # <-- updated username
+          key: ${{ secrets.KEY }}                   # your private .pem content
+          port: 22
+          source: "./"                              # what to copy
+          target: "/home/labuser/app"               # change if needed
+
+      - name: Invoke Jenkins Deployment Job
+        uses: appleboy/jenkins-action@master
+        with:
+          url: "http://3.110.233.187:8080"
+          user: "admin"
+          token: ${{ secrets.JENKINS_TOKEN }}
+          job: "Tomcat Deployment"
