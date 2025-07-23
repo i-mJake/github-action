@@ -20,18 +20,18 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: 13.235.63.165
-          username: "labuser"
+          username: labuser
           key: ${{ secrets.SSH_KEY }}     
           port: 22
           source: "./"
           target: "/home/ubuntu/app"
-          timeout: 10s
+          timeout: 30s
           command_timeout: 10m
 
       - name: Invoke Jenkins Deployment Job
         uses: appleboy/jenkins-action@master
         with:
           url: "http://3.110.233.187:8080"
-          user: "labuser"
+          user: labuser
           token: ${{ secrets.JENKINS_TOKEN }}
           job: "Tomcat Deployment"
