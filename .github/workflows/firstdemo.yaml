@@ -32,6 +32,6 @@ jobs:
         uses: appleboy/jenkins-action@master
         with:
           url: "http://3.110.233.187:8080"
-          user: "admin"
+          user: "labuser"
           token: ${{ secrets.JENKINS_TOKEN }}
           job: "Tomcat Deployment"
