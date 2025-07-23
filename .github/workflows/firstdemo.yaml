@@ -16,17 +16,15 @@ jobs:
       - name: Build
         run: echo "Build Coding Practice"
 
-      - name: scp ssh pipelines
-        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+      - name: Copy files to server using SCP
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOST }}
-          user: ${{ secrets.USERNAME }}
-          pass: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          scp: |
-            ./target/*.war => /tmp/
-          last_ssh: |
-            ls -lart /tmp
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          source: "./"                  # you can specify files/folders here
+          target: "/home/ubuntu/app"   # replace with your actual destination
 
       - name: Invoke Jenkins Deployment Job
         uses: appleboy/jenkins-action@master
@@ -35,4 +33,3 @@ jobs:
           user: "admin"
           token: ${{ secrets.JENKINS_TOKEN }}
           job: "Tomcat Deployment"
-
