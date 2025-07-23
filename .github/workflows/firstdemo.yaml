@@ -19,13 +19,13 @@ jobs:
       - name: Copy files to server using SCP
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          host: 13.235.63.165
+          username: "labuser"
           key: ${{ secrets.SSH_KEY }}     
           port: 22
           source: "./"
           target: "/home/ubuntu/app"
-          timeout: 30s
+          timeout: 10s
           command_timeout: 10m
 
       - name: Invoke Jenkins Deployment Job
