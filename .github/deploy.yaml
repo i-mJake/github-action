@@ -20,11 +20,12 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOST }}                 # e.g. 13.235.63.165
-          username: labuser                         # <-- updated username
-          key: ${{ secrets.KEY }}                   # your private .pem content
+          host: 13.235.63.165
+          username: labuser
+          key: ${{ secrets.KEY }}
           port: 22
-          source: "./"                              # what to copy
-          target: "/home/labuser/app"               # change if needed
+          source: "./"
+          target: "/home/labuser/ap
 
       - name: Invoke Jenkins Deployment Job
         uses: appleboy/jenkins-action@master
