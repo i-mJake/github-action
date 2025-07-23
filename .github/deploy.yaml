@@ -7,27 +7,39 @@ on:
       - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Build
-        run: echo "Build Coding Practice"
+      - name: Build Step
+        run: echo "Build Step Running..."
 
       - name: Copy files to server using SCP
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.HOST }}                 # e.g. 13.235.63.165
           host: 13.235.63.165
           username: labuser
-          key: ${{ secrets.KEY }}
+          key: ${{ secrets.KEY }}             # This is your private SSH key
           port: 22
-          source: "./"
-          target: "/home/labuser/ap
+          source: "./"                        # Adjust to your source folder or files
+          target: "/home/labuser/app"         # Change to your server's target path
+          timeout: 30s
+          command_timeout: 10m
+          use_insecure_cipher: false
+          rm: false
+          debug: false
+          strip_components: 0
+          overwrite: false
+          tar_dereference: false
+          tar_exec: tar
+          proxy_port: 22
+          proxy_timeout: 30s
+          proxy_use_insecure_cipher: false
 
-      - name: Invoke Jenkins Deployment Job
+      - name: Trigger Jenkins Deployment
         uses: appleboy/jenkins-action@master
         with:
           url: "http://3.110.233.187:8080"
