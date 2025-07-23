@@ -16,14 +16,6 @@ jobs:
       - name: Build
         run: echo "Build Coding Practice"
 
-      - name: Invoke Jenkins Deployment Job
-        uses: appleboy/jenkins-action@master
-        with:
-          url: "http://3.110.233.187:8080"
-          user: "admin"
-          token: ${{ secrets.JENKINS_TOKEN }}
-          job: "Tomcat Deployment"
-
       - name: scp ssh pipelines
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:
@@ -35,3 +27,12 @@ jobs:
             ./target/*.war => /tmp/
           last_ssh: |
             ls -lart /tmp
+
+      - name: Invoke Jenkins Deployment Job
+        uses: appleboy/jenkins-action@master
+        with:
+          url: "http://3.110.233.187:8080"
+          user: "admin"
+          token: ${{ secrets.JENKINS_TOKEN }}
+          job: "Tomcat Deployment"
+
